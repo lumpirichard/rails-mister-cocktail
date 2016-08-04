@@ -5,17 +5,31 @@
       <h1 class="text-center"><%= @cocktail.name %></h1>
 
 
-      <ul>
-      <% @cocktail.doses.each do |dose| %>
+
+      <% @cocktail.doses.reject(&:new_record?).each do |dose| %>
         <li><%= dose.description %> of <%= dose.ingredient.name %> <%= link_to "Delete", dose_path(dose), method: :delete  %></li>
       <% end %>
-      </ul>
+
 
       <div class="text-center">
         <%= link_to 'New Dose', new_cocktail_dose_path(@cocktail), class: 'btn btn-primary'  %>
 
         <%= link_to 'home', cocktails_path, class: "btn btn-primary"  %>
       </div>
+
+
+  <%= simple_form_for [@cocktail, @dose] do |f| %>
+
+        <%= f.error_notification %>
+
+        <%= f.input :description %>
+        <%= f.select :ingredient_id, options_from_collection_for_select(Ingredient.all, 'id', 'name') %>
+
+        <%= f.button :submit %>
+
+      <% end %>
+
+
     </div>
   </div>
 </div>

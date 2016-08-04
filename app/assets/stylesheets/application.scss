@@ -13,3 +13,13 @@
 @import "components/index";
 @import "pages/index";
 @import "vendor/index";
+
+
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: blue;
+}
